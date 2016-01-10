@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="121115-01" author="Nasadiuk">
+        <comment>Create test table for store Phone information</comment>
+        <createTable tableName="mobile">
+
+            <column name="mobile_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(50)"/>
+
+            <column name="price" type="numeric(18)"/>
+
+            <column name="profit" type="numeric(18)"/>
+
+            <column name="amount" type="int"/>
+
+            <column name="manufacturer_id" type="bigint"/>
+
+        </createTable>
+
+        <!--SEQUENCE for generation book id-->
+        <createSequence sequenceName="MOBILE_SEQ"/>
+    </changeSet>
+
+
+    <changeSet id="121115-02" author="Nasadiuk">
+        <comment>Create table for store phones manufacturers</comment>
+        <createTable tableName="manufacturer">
+
+            <column name="manufacturer_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(50)"/>
+
+            <column name="country" type="varchar(50)"/>
+
+            <column name="email" type="varchar(50)"/>
+
+            <column name="contact" type="varchar(50)"/>
+
+
+            <!--CONSTRAINT for relation Many to One (Phones >- Manufacturer) -->
+
+
+        </createTable>
+
+
+        <addForeignKeyConstraint constraintName="LB_MANUFACTURER_FK"
+                                 referencedTableName="manufacturer"
+                                 referencedColumnNames="manufacturer_id"
+                                 baseColumnNames="manufacturer_id"
+                                 baseTableName="mobile"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+        <!--SEQUENCE for generation author id-->
+
+        <createSequence sequenceName="MANUFACTURER_SEQ"/>
+    </changeSet>
+
+
+    <changeSet id="121115-03" author="Nasadiuk">
+        <comment>Create test table for store sales</comment>
+        <createTable tableName="sales">
+
+            <column name="sale_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(50)"/>
+
+            <column name="sale_time" type="timestamp"/>
+
+            <column name="sale_price" type="numeric(18)"/>
+
+            <column name="profit" type="numeric(18)"/>
+
+            <column name="mobile_id" type="bigint"/>
+
+        </createTable>
+
+        <!--SEQUENCE for generation book id-->
+        <createSequence sequenceName="SALES_SEQ"/>
+
+
+    </changeSet>
+</databaseChangeLog>
